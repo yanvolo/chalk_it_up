@@ -113,7 +113,7 @@
       </table>
       <button class="btn btn-danger" style="float:right; padding:10px;margin:10px;" id="rem-card"><span class="glyphicon glyphicon-minus" > </span> Rem. Card </button>
       <button class="btn btn-primary" style="float:right;padding:10px;margin:10px;" id="add-card"><span class="glyphicon glyphicon-plus" > </span> Add Card </button>
-      <input type="submit" class="btn btn-default"></input>
+      <input type="submit" class="btn btn-default" style="float:right; padding:10px;margin:10px;"></input>
       </form>
       
       
