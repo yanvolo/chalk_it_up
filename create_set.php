@@ -51,6 +51,7 @@
 	</head>
 	<body>
 		<?php require 'library.php'; printNav(); ?>
+		<form method="post">
 		<table class="table table-bordered card-table">
          <thead class="thead-inverse">
              <th> <h4 class="text-center"> Question </h4> </th>
@@ -112,6 +113,8 @@
       </table>
       <button class="btn btn-danger" style="float:right; padding:10px;margin:10px;" id="rem-card"><span class="glyphicon glyphicon-minus" > </span> Rem. Card </button>
       <button class="btn btn-primary" style="float:right;padding:10px;margin:10px;" id="add-card"><span class="glyphicon glyphicon-plus" > </span> Add Card </button>
+      <input type="submit" class="btn btn-default"></input>
+      </form>
       
       
       
