@@ -10,6 +10,7 @@
 	  <meta name="google-signin-scope" content="profile email"/>
         <meta name="google-signin-client_id" content="1054699344422-jr8acquecheeh5lrghtcvhabto42hni4.apps.googleusercontent.com"/>
 	   <script src="https://apis.google.com/js/platform.js" async defer></script>
+	   <link rel="icon" type="img/ico" href="cp.ico">
     <style>
 	* {
 		border-radius: 0 !important;
@@ -20,6 +21,7 @@
 	}
 	.big-image{
 		height: 500px;
+		background-color:black;
 	}
 	</style>
       
