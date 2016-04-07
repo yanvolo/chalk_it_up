@@ -1,0 +1,16 @@
+* {
+	border-radius: 0 !important;
+}
+html{
+	width:100%;
+}
+.navbar-brand img{
+	height: 1em;
+}
+.navbar-brand img:hover{
+	filter: brightness(120%);
+}
+.navbar-brand img:active{
+	filter:brightness(90%);
+}
+
