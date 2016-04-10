@@ -1,7 +1,13 @@
+<?
+require "library.php";
+needUserInfo();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
   <head xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<?php require 'library.php'; printHead(); ?>
+
+    <?php printDeps();?>
+     <title>Chalk it up!</title>
 	 <style>
 	 #blackboard{
 		background: url("https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/BB.png") no-repeat center center fixed; 
@@ -66,15 +72,9 @@
 		<figure>
 			<img class="big-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/bookworm_sketch.jpg"/>
 			<figcaption> /bosses/bookworm_sketch.jpg </figcaption>
+
 		</figure>
-		
-    
-		  
-      
-      <!-- Jquery -->
-      <script src="http://code.jquery.com/jquery-2.2.2.js" > </script>
-      <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
   </body>
 
 </html>
