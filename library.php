@@ -1,20 +1,9 @@
 ﻿<?php
-<<<<<<< HEAD
 	$servername = 'localhost';
 	$username = 'root';
 	$password = 'tuesday';
 	$dbname = 'chalkupDB';
 	
-	function importXML($filename){
-		$xmlDoc = new DOMDocument();
-		$xmlDoc->load($filename);
-		echo $xmlDoc -> saveXML();
-	}
-	function importXML($filename){
-		$xmlDoc = new DOMDocument();
-		$xmlDoc->load($filename);
-		echo $xmlDoc -> saveXML();
-	}
 	$logged_in = NULL;
 	$display_name = NULL;
 	$login_name = NULL;
@@ -50,13 +39,13 @@
 		$login_name = $userRow['login_name'];
 	}
 function printDeps(){
+    global $logged_in;
     echo '<link rel="stylesheet" href="css/bootstrap.min.css"> </link>
 <link rel="stylesheet" href="css/bootstrap-theme.min.css"></link>
 <link rel="stylesheet" href="css/default.css"></link>
 <script src="http://code.jquery.com/jquery-2.2.2.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 ';
-}
     if($logged_in === FALSE){
         echo '    <script>
       function onSignIn(googleUser) {
@@ -203,9 +192,6 @@ function printNav(){
 		} while($result->num_rows !== 0);
 		return $rand; 
 	}
-
-
-}
 
 $rootDomain = "159.203.98.220";
 $protocol = "http://";
