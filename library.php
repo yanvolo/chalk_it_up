@@ -68,6 +68,17 @@ function printDeps(){
 	   <link rel="icon" type="img/ico" href="cp.ico">';
     }
 }
+function getLoginFailMsg(){
+    switch($_GET['fail_auth_native_msgid']){
+    case NULL: case '': return '';
+    case 0: return $_GET['fail_auth_login_name'] === '' ? 'No username was entered.' : "No account named '".filter_var($_GET['fail_auth_login_name'], FILTER_SANITIZE_SPECIAL_CHARS)."' exists.";
+    case 1: return "Your account was found, but you have no password set. Perhaps you've only logged in through an external service? (uid:".filter_var($_GET['fail_auth_uid'], FILTER_SANITIZE_SPECIAL_CHARS).").";
+    case 2: return "Invalid password.";
+    case 3: return "Internal server error (your account has an invalid hash type).";
+    case 4: return "You did everything right, but i failed to create a session for you ¯\_('')_/¯";
+    default: return "";
+    }
+}
 
 function printNav(){
     global $logged_in, $display_name, $login_name;
@@ -112,8 +123,10 @@ function printNav(){
 
 <form action="auth_native.php" method="post">
 <div class="modal-body">
-<input type="text" name="login_name"/><br/>
-<input type="password" name="secret"/><br/>
+<p style="color: #f00;">'. getLoginFailMsg() .'</p>
+<input type="text" name="login_name" placeholder="Username" value="'.filter_var($_GET['fail_auth_login_name'], FILTER_SANITIZE_SPECIAL_CHARS).'"/><br/>
+<input type="password" name="secret" placeholder="Password"/><br/>
+<input type="hidden" name="callback" value="'.$_SERVER['REQUEST_URI'].'"></input>
 </div>
 <div class="modal-footer">
 
@@ -127,6 +140,8 @@ function printNav(){
 </div>
 </div>
 </div>
+
+'.(($_GET['fail_auth_native_msgid'] !== NULL and $_GET['fail_aut_native_msgid'] !== '') ? '<script>$("#loginModal").modal("show");</script>' : '').'
 
 ';
 }

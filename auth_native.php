@@ -6,27 +6,37 @@ $name = $_POST["login_name"];
 $secret = $_POST["secret"];
 $callback = $_POST["callback"];
 
+if(strpos($callback, "?") === FALSE){
+    $callback .= "?";
+}
+
 function getAuth($uid){
     return runSql1("get_auth", 'SELECT * FROM auth_native WHERE uid = $1;', array($uid));}
 
-$uid = getUidFromLoginName($name);
+function fail_login($msgid, $name, $uid){
+    global $protocol, $rootDomain, $callback;
+    header("Location: " . $protocol . $rootDomain . $callback . "&fail_auth_native_msgid=$msgid&fail_auth_login_name=$name&fail_auth_uid=$uid");
+    exit();
+}
+
+$uid = getUidFromLoginName($name) or fail_login(0, $name, NULL);
 
 #substr(sha1(password_hash("bcrypt", PASSWORD_BCRYPT, ["cost" => 4, "salt" => "bcryptbcryptbcryptbcry"])), 0, 6)
 $BCRYPT_HASH_TYPE = "c34d5d";
 
 #echo password_hash($secret, PASSWORD_BCRYPT, ["cost" => 10]);
 
-$auth = getAuth($uid) or die("Your account was found, but you have no password set. Perhaps you've only logged in through an external service?");
+$auth = getAuth($uid) or fail_login(1, $name, $uid);
 switch($auth['secret_hash_type']){
 case $BCRYPT_HASH_TYPE:
     if(password_verify($secret, $auth['secret_hash']) !== TRUE){
-        die("invalid password");
+        fail_login(2, $name, $uid);
     };
     break;
-default: die("internal server error (your account has an invalid hash type)");
+default: fail_login(3);
 }
 
-$sessionid = newSession($uid) or die("failed to create a session for you ¯\_('')_/¯");
+$sessionid = newSession($uid) or fail_login(4);
 doneWithSql();
 
 
