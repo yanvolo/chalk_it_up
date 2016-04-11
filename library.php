@@ -1,30 +1,14 @@
 ﻿<?php
-<<<<<<< HEAD
-	$servername = 'localhost';
-	$username = 'root';
-	$password = 'tuesday';
-	$dbname = 'chalkupDB';
-	
-	function importXML($filename){
-		$xmlDoc = new DOMDocument();
-		$xmlDoc->load($filename);
-		echo $xmlDoc -> saveXML();
-	}
-	function importXML($filename){
-		$xmlDoc = new DOMDocument();
-		$xmlDoc->load($filename);
-		echo $xmlDoc -> saveXML();
-	}
 	$logged_in = NULL;
 	$display_name = NULL;
 	$login_name = NULL;
 	$uid = NULL;
 	function needUserInfo(){
 		global $logged_in, $display_name, $login_name, $uid;
-		if($logged_in !== NULL){
+		if(isset($logged_in)){
 			return;
 		}
-		if($_COOKIE['sessionid'] === NULL){
+		if(!isset($_COOKIE['sessionid'])){
 			$logged_in = FALSE;
 			return;
 		}
@@ -50,13 +34,13 @@
 		$login_name = $userRow['login_name'];
 	}
 function printDeps(){
+    global $logged_in;
     echo '<link rel="stylesheet" href="css/bootstrap.min.css"> </link>
 <link rel="stylesheet" href="css/bootstrap-theme.min.css"></link>
 <link rel="stylesheet" href="css/default.css"></link>
 <script src="http://code.jquery.com/jquery-2.2.2.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 ';
-}
     if($logged_in === FALSE){
         echo '    <script>
       function onSignIn(googleUser) {
@@ -81,8 +65,11 @@ function printDeps(){
     }
 }
 function getLoginFailMsg(){
+    if(!isset($_GET['fail_auth_native_msgid'])){
+        return '';
+    }
     switch($_GET['fail_auth_native_msgid']){
-    case NULL: case '': return '';
+    case '': return '';
     case 0: return $_GET['fail_auth_login_name'] === '' ? 'No username was entered.' : "No account named '".filter_var($_GET['fail_auth_login_name'], FILTER_SANITIZE_SPECIAL_CHARS)."' exists.";
     case 1: return "Your account was found, but you have no password set. Perhaps you've only logged in through an external service? (uid:".filter_var($_GET['fail_auth_uid'], FILTER_SANITIZE_SPECIAL_CHARS).").";
     case 2: return "Invalid password.";
@@ -94,6 +81,9 @@ function getLoginFailMsg(){
 
 function printNav(){
     global $logged_in, $display_name, $login_name;
+    if(!isset($logged_in)){
+        echo '<script>alert("Ignore this message. logged_in is null. you didnt call needUserInfo.");</script>';
+    }
     echo '<nav class="navbar navbar-inverse navbar-fixed">
           <div class="container"> 
 				<div class="navbar-header">
@@ -107,13 +97,8 @@ function printNav(){
 				</div>
 				<div class="collapse navbar-collapse" id="my-nav">
 					<ul class="nav navbar-nav navbar-right">
-							<li>
-' . ($logged_in === NULL ? '<script>alert("Ignore this message. logged_in is null. you didnt call needUserInfo.");</script>' : '') . (($logged_in === FALSE) ?
-'<a data-toggle="modal" data-target="#loginModal">Login</a>
-' :
-     ("<a href=\"/profile.php?login_name=$login_name\">" . $display_name . '</a> <a href="/logout.php">Logout</a>')
-) . '
-</li>
+' . (($logged_in === FALSE) ? '<li><a data-toggle="modal" data-target="#loginModal">Login</a></li>' :
+     ("<li><a href=\"/profile.php?login_name=$login_name\">" . $display_name . '</a></li><li><a href="/logout.php">Logout</a></li>')) . '
 					</ul>
 					<ul class="nav navbar-nav">
 						<li><a href="play_home.php"> Play </a> </li>
@@ -122,6 +107,7 @@ function printNav(){
 					</ul>
 				</div>
 			</div>
+</nav>
       <div class="modal fade" role="dialog" id="loginModal">
 <div class="modal-dialog">
 <div class="modeal-content">
@@ -134,7 +120,7 @@ function printNav(){
 <form action="auth_native.php" method="post">
 <div class="modal-body">
 <p style="color: #f00;">'. getLoginFailMsg() .'</p>
-<input type="text" name="login_name" placeholder="Username" value="'.filter_var($_GET['fail_auth_login_name'], FILTER_SANITIZE_SPECIAL_CHARS).'"/><br/>
+<input type="text" name="login_name" placeholder="Username" value="'.(isset($_GET['fail_auth_login_name']) ? filter_var($_GET['fail_auth_login_name'], FILTER_SANITIZE_SPECIAL_CHARS) : '').'"/><br/>
 <input type="password" name="secret" placeholder="Password"/><br/>
 <input type="hidden" name="callback" value="'.$_SERVER['REQUEST_URI'].'"></input>
 </div>
@@ -151,63 +137,12 @@ function printNav(){
 </div>
 </div>
 
-'.(($_GET['fail_auth_native_msgid'] !== NULL and $_GET['fail_aut_native_msgid'] !== '') ? '<script>$("#loginModal").modal("show");</script>' : '').'
+'.(($logged_in === FALSE and isset($_GET['fail_auth_native_msgid']) and $_GET['fail_auth_native_msgid'] !== '') ? '<script>$("#loginModal").modal("show");</script>' : '').'
 
 ';
 	}
-	function sanitize_input($inputString){
-		$inputString = trim($inputString);
-		$inputString = stripslashes($inputString);
-		$inputString = htmlspecialchars($inputString);
-		return $ret;
-	}
-	function printHead(){
-		echo '<!-- Latest compiled and minified CSS -->
-	 <link rel="stylesheet" href="css/bootstrap.min.css"></link>
-	 <!-- Optional theme -->
-	 <link rel="stylesheet" href="css/bootstrap-theme.min.css"></link>
-	 <!-- Personal Deafult Theme-->
-	 <link rel="stylesheet" href="css/default.css"></link>
-	 
-	 <meta name="google-signin-scope" content="profile email"/>
-     <meta name="google-signin-client_id" content="1054699344422-jr8acquecheeh5lrghtcvhabto42hni4.apps.googleusercontent.com"/>
-	 <script src="https://apis.google.com/js/platform.js" async defer></script>
-	 <link rel="icon" type="img/ico" href="cp.ico">
-     <title>Chalk it up!</title>';
-	}
-	function loadBasicScripts(){
-		echo '<!-- Jquery -->
-      <script src="js/jquery-2.2.2.js"> </script>
-      <!-- Latest compiled and minified JavaScript -->
-	  <script src="js/bootstrap.min.js"></script>
-	  <!-- Textfill JS-->
-	  <script src="js/jquery.textfill.min.js"></script>
-	  <script type="text/javascript">
-      function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
 
-
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-      };
-    </script>';
-	}
-		function create_deckID($conn){
-		//Keep generating random values until we get no output from master
-		do {
-			$rand = mt_rand(0,2000000000);
-			$command = "SELECT * FROM master_card WHERE deckID=$rand"; 
-			$result = $conn -> query($command) or die("Querry failed");
-		} while($result->num_rows !== 0);
-		return $rand; 
-	}
-
-
-}
-
-$rootDomain = "159.203.98.220";
+$rootDomain = "www.chalkitup.online";
 $protocol = "http://";
 $root = $protocol . $rootDomain . "/";
 
@@ -218,20 +153,19 @@ $sqlCon = NULL;
 function sql(){
     global $sqlCon;
 
-    if($sqlCon !== NULL){
+    if(isset($sqlCon) and $sqlCon !== NULL){
         return;
     }
 
     $host = "/var/run/postgresql";
     $user = "postgres";
-#    $pass = "<snip>";
     $dbName = "postgres";
-    $sqlCon = pg_connect("host=$host dbname=$dbName user=$user "/*password=$pass*/)
+    $sqlCon = pg_connect("host=$host dbname=$dbName user=$user")
         or die ("Could not connect to sql server\n");   
 }
 function doneWithSql(){
     global $sqlCon;
-    if($sqlCon === NULL){
+    if(!isset($sqlCon) or $sqlCon === NULL){
         return;
     }
     pg_close($sqlCon);
@@ -239,11 +173,12 @@ function doneWithSql(){
 }
 function runSql($name, $stmt, $args){
     global $sqlCon;
-    $res = pg_execute($sqlCon, $name, $args);
-    if($res === FALSE){
-        pg_prepare($sqlCon, $name, $stmt);
-        $res = pg_execute($sqlCon, $name, $args);
-    }
+    //$res = pg_execute($sqlCon, $name, $args);
+    //if($res === FALSE){
+    //    pg_prepare($sqlCon, $name, $stmt);
+    //        $res = pg_execute($sqlCon, $name, $args);
+        //}
+    $res = pg_query_params($sqlCon, $stmt, $args);
     return $res;
 }
 function runSql1( $name, $stmt, $args){
@@ -302,6 +237,29 @@ function newUser($login_name, $display_name){
     $good = runSql("new_user", 'INSERT INTO user_ (uid, login_name, display_name) VALUES ($1, $2, $3);', array($uid, $login_name, $display_name));
     return $good ? $uid : FALSE;
 }
+function txStart(){
+    runSql('tx_start', 'START TRANSACTION;', array());
+}
+function txCommit(){
+    runSql('tx_commit', 'COMMIT;', array());
+}
+function txCancel(){
+    runSql('tx_end', 'ROLLBACK;', array());
+}
+
+
+#by mpyw from https://gist.github.com/johanmeiring/2894568#gistcomment-1586957
+if(!function_exists('str_putcsv')){
+    function str_putcsv($input, $delimiter = ',', $enclosure = '"') {
+        $fp = fopen('php://temp', 'r+b');
+        fputcsv($fp, $input, $delimiter, $enclosure);
+        rewind($fp);
+        $data = rtrim(stream_get_contents($fp), "\n");
+        fclose($fp);
+        return $data;
+    }
+                                           }
+
 #function cleanSessions(){
 #    $old = runSql("get_old_sessions", 'SELECT sessionid FROM session_ WHERE start_time < $1;', array(time() - 10));
 

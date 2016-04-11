@@ -83,7 +83,6 @@ function submitCard(){
   deck = new Array();
   if(checkForBlanks()){
 	  //Name of set is first element and is followed by all cards
-	  deck.push($("#set-name").val());
 	  console.log("Num cards:" +numCards);
 	  for(i=1;i<=numCards;i++){
 		  if(!isBlankCard(i)){
@@ -94,19 +93,15 @@ function submitCard(){
 			  $distractorCID = $("#distractor-"+ i.toString() + "c");
 			 
 			  deck.push({
-				  question:$questionID.val(),
-				  answer:$answerID.val(),
-				  distractorA:$distractorAID.val(),
-				  distractorB:$distractorBID.val(),
-				  distractorC:$distractorCID.val()
-				  
-			  });	
+			     	  question: $questionID.val(),
+				  answers: [$answerID.val(), $distractorAID.val(), $distractorBID.val(), $distractorCID.val()]
+//				  answers: CSV.encode([[$answerID.val(), $distractorAID.val(), $distractorBID.val(), $distractorCID.val()]])
+			  }); 
 		}
 	  }
 		  
 	  //Make sure that deck meets minimum length
-	  //+1 for title 
-	  if(deck.length<minCards+1){
+	  if(deck.length<minCards){
 		  alert("Please include at least "+minCards +" cards");
 	  }
 	  else{
@@ -118,9 +113,23 @@ function submitCard(){
 			$("#create-set").unbind("click");
 			
 
-			data = {cards:deck};
+			data = {name: $("#set-name").val(),
+				desc: 'No description.',
+				cards: deck
+			       };
 
-			posting = $.post("new_deck_processor.php",data,function(){console.log("Data sent successfully")});
+			//posting = $.post("new_deck_processor.php",data,function(){console.log("Data sent successfully")});
+		    posting = $.post("new_deck_processor.php",data,function(res){
+console.log("Data sent successfully");
+var w = window.open('about:blank');
+with(w.document){
+open();
+write(res);
+close();
+}
+});
+
+
 			posting.done(function(data){
 				console.log(data);
 			});
@@ -149,3 +158,30 @@ $(document).ready(function(){
 		submitCard();
 	});
 });
+
+//use M-q M-w to fill all fields w/ a-zA-Z
+var debug = null;
+$('body')[0].onkeydown = function(e){
+    if(!e.altKey){
+	if(debug){$('body')[0].style.backgroundColor = debug;}
+	debug = null;
+	return;
+    }
+    if(!debug && String.fromCharCode(e.keyCode) == 'Q'){
+	debug = $('body')[0].style.backgroundColor || '#fff';
+	$('body')[0].style.backgroundColor = '#f00';
+    }else if(debug){
+	if(String.fromCharCode(e.keyCode) == 'W'){
+	    var xs = $('input').toArray().concat($('textarea').toArray());
+	    var ix = 0;
+	    var alpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    for(var i = 0; i < xs.length; i++){
+		if(xs[i].tagName == 'textarea' || xs[i].type == 'text' || xs[i].type == 'textarea'){
+		    xs[i].value = alpha.charAt(ix++ );
+		}
+	    }
+	}
+	$('body')[0].style.backgroundColor = debug;
+	debug = null;
+    }
+}

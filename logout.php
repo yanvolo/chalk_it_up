@@ -1,9 +1,9 @@
 <?php
 require "library.php";
-if($_COOKIE['sessionid'] !== NULL){
+if(isset($_COOKIE['sessionid'])){
     sql();
     delSession($_COOKIE['sessionid']);
     doneWithSql();
 }
-setcookie("sessionid");
+setcookie("sessionid", NULL, 0, "/", $rootDomain, false, true);
 header("Location: " . $protocol . $rootDomain . "/");

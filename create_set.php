@@ -1,7 +1,11 @@
+<?php
+require "library.php";
+needUserInfo();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 	<head xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-     <?php require 'library.php'; printHead(); ?>
+     <?php printDeps(); ?>
      <title>Chalk it up!</title>
 		<style>  
       textarea { 
@@ -98,8 +102,8 @@
       <button class="btn btn-primary" style="float:right;padding:10px;margin:10px;" id="add-card"><span class="glyphicon glyphicon-plus" > </span> Add Card </button>
 	  <button class="btn btn-default" style="float:right; padding:10px;margin:10px;" id="create-set"><span class="glyphicon glyphicon-th-large" > </span>Create Set</button> 
       <div>
-      
-	  <?php loadBasicScripts();?>
+
+      <script src="js/csv.min.js"></script>
       <script src="js/createSet.js"></script>
 	  </body>
 
