@@ -441,6 +441,12 @@ Search: <input type="text" name="search" oninput="'.$js_submit.'()" id="'.$searc
 </div>
 </div>';
 }
+function truncate_string($string, $max){
+	if(strlen($string)>$max){
+		$string = substr($string,0,$max)."...";
+	}
+	return $string;
+}
 
 
 #function cleanSessions(){
