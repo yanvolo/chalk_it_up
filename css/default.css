@@ -5,7 +5,7 @@ html{
 	width:100%;
 }
 .navbar-brand img{
-	height: 1em;
+	height: 30px;
 }
 .navbar-brand img:hover{
 	filter: brightness(120%);
