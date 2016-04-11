@@ -108,13 +108,13 @@ function printNav(){
 				</div>
 			</div>
 </nav>
-      <div class="modal fade" role="dialog" id="loginModal">
+      <div class="modal fade" role="dialog" id="loginModal" style="background-color:rgba(240,240,240,0.8);">
 <div class="modal-dialog">
 <div class="modeal-content">
 
 <div class="modal-header">
 <span class="modal-title">Login</span>
-<button class="close" data-dismess="modal">x</button>
+<button class="close" data-dismiss="modal">x</button>
 </div>
 
 <form action="auth_native.php" method="post">
