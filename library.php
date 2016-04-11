@@ -93,7 +93,7 @@ function printNav(){
 						<span class="icon-bar"></span> 
 						<span class="icon-bar"></span>
 					</button>
-					<a href="index.php" class="navbar-brand"> <img style="height:1em;" alt="Chalk it up" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/logo_horzontal.png"/></a>
+					<a href="index.php" class="navbar-brand"> <img alt="Chalk it up" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/logo_horzontal.png"/></a>
 				</div>
 				<div class="collapse navbar-collapse" id="my-nav">
 					<ul class="nav navbar-nav navbar-right">
