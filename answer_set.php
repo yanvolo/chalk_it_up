@@ -68,10 +68,10 @@
 	
 	shuffle($possible_answers);
 	
-	$answer1 = $possible_answers[0];
-	$answer2 = $possible_answers[1];
-	$answer3 = $possible_answers[2];
-	$answer4 = $possible_answers[3];
+	$answer1 = truncate_string($possible_answers[0],22);
+	$answer2 = truncate_string($possible_answers[1],22);
+	$answer3 = truncate_string($possible_answers[2],22);
+	$answer4 = truncate_string($possible_answers[3],22);
 	//close connection
 	$conn->close();
 	
@@ -118,8 +118,7 @@
 	
 	</form>
 	<script type="text/javascript">
-		$('#question').textfill({
-			minFontPixels: 20
-		});
+			$(".answer-choice").fitText(1.1, { minFontSize: '12px', maxFontSize: '70px' });
+			$("#question").fitText(1.1, { minFontSize: '12px', maxFontSize: '70px' });
 	</script>
 </body>
