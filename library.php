@@ -108,7 +108,7 @@ function printNav(){
 				</div>
 			</div>
 </nav>
-      <div class="modal fade" role="dialog" id="loginModal" style="background-color:rgba(240,240,240,0.8);">
+      <div class="modal fade" role="dialog" id="loginModal" style="background-color:rgba(255,255,255,0.8);">
 <div class="modal-dialog">
 <div class="modeal-content">
 
