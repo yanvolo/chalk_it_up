@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<?php require 'library.php'; printHead(); ?>
+	<?php require 'library.php'; needUserInfo(); printDeps(); ?>
 	<style>
 		.answer-choice{
 			width:100%;
@@ -117,7 +117,6 @@
 		</div>
 	
 	</form>
-	<?php loadBasicScripts(); ?>
 	<script type="text/javascript">
 		$('#question').textfill({
 			minFontPixels: 20
