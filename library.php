@@ -39,7 +39,7 @@ function printDeps(){
 <link rel="stylesheet" href="css/bootstrap-theme.min.css"></link>
 <link rel="stylesheet" href="css/default.css"></link>
 <script src="http://code.jquery.com/jquery-2.2.2.js" ></script>
-<script src="js/bootstrap.min.js" ></script>
+<script src="js/bootstrap.min.js" ></script><script src="js/jquery.fittext.js"></script>
 ';
     if($logged_in === FALSE){
         echo '    <script>
