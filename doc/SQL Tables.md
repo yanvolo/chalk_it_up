@@ -62,7 +62,7 @@ Sessions of users currently logged in (session also a SQL reserved word).
 
 #`class_teacher_link`
 
-		CREATE TABLE class_student_link (  
+		CREATE TABLE class_teacher_link (  
 			classid CHAR(24) REFERENCES class(classid),  
 			uid CHAR(24) REFERENCES user_(uid),  
 			PRIMARY KEY(classid, uid)  
@@ -96,4 +96,9 @@ Sessions of users currently logged in (session also a SQL reserved word).
 			answers_csv NCHAR VARYING NOT NULL
 			);  
 
+#`admin`
 
+		CREATE TABLE admin (  
+			uid CHAR(24) REFERENCES user_(uid) NOT NULL,  
+			permissions_csv CHAR VARYING NOT NULL
+			);  

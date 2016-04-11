@@ -3,10 +3,6 @@ require "library.php";
 sql();
 needUserInfo();
 
-function san($x){
-    return filter_var($x, FILTER_SANITIZE_SPECIAL_CHARS);
-}
-
 $deckID = base64_encode(random_bytes(16));
 $name = san($_POST['name']);
 $description = san($_POST['desc']);

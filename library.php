@@ -3,8 +3,10 @@
 	$display_name = NULL;
 	$login_name = NULL;
 	$uid = NULL;
+$is_admin = NULL;
+$admin_permissions = NULL;
 	function needUserInfo(){
-		global $logged_in, $display_name, $login_name, $uid;
+		global $logged_in, $display_name, $login_name, $uid, $admin_permissions, $is_admin;
 		if(isset($logged_in)){
 			return;
 		}
@@ -32,6 +34,13 @@
 		$logged_in = TRUE;
 		$display_name = $userRow['display_name'];
 		$login_name = $userRow['login_name'];
+        $admin = runSql1('select_admin_by_uid', 'SELECT * FROM admin WHERE uid = $1;', array($uid));
+        if($admin){
+            $is_admin = TRUE;
+            $admin_permissions = str_getcsv($admin['permissions_csv']);
+        }else{
+            $is_admin = FALSE;
+        }
 	}
 function printDeps(){
     global $logged_in;
@@ -80,7 +89,7 @@ function getLoginFailMsg(){
 }
 
 function printNav(){
-    global $logged_in, $display_name, $login_name;
+    global $logged_in, $display_name, $login_name, $is_admin;
     if(!isset($logged_in)){
         echo '<script>alert("Ignore this message. logged_in is null. you didnt call needUserInfo.");</script>';
     }
@@ -93,24 +102,25 @@ function printNav(){
 						<span class="icon-bar"></span> 
 						<span class="icon-bar"></span>
 					</button>
-					<a href="index.php" class="navbar-brand"> <img alt="Chalk it up" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/logo_horzontal.png"/></a>
+					<a href="index.php" class="navbar-brand"> <img style="height:1em;" alt="Chalk it up" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/logo_horzontal.png"/></a>
 				</div>
 				<div class="collapse navbar-collapse" id="my-nav">
+					<ul class="nav navbar-nav">'.
+($logged_in ? '<li><a href="play_home.php"> Play </a> </li>
+						<li><a href="classrooms_home.php"> Classrooms </a> </li>
+						<li><a href="feedback.php"> Feedback </a> </li>' : '').
+($is_admin ? '<li><a href="admin.php">Admin</a></li>' : '' ).'
+					</ul>
 					<ul class="nav navbar-nav navbar-right">
 ' . (($logged_in === FALSE) ? '<li><a data-toggle="modal" data-target="#loginModal">Login</a></li>' :
      ("<li><a href=\"/profile.php?login_name=$login_name\">" . $display_name . '</a></li><li><a href="/logout.php">Logout</a></li>')) . '
 					</ul>
-					<ul class="nav navbar-nav">
-						<li><a href="play_home.php"> Play </a> </li>
-						<li><a href="classrooms_home.php"> Classrooms </a> </li>
-						<li><a href="feedback.php"> Feedback </a> </li>
-					</ul>
 				</div>
 			</div>
 </nav>
-      <div class="modal fade" role="dialog" id="loginModal" style="background-color:rgba(255,255,255,0.8);">
+      <div class="modal fade" role="dialog" id="loginModal" style="background-color:rgba(240,240,240,0.8);">
 <div class="modal-dialog">
-<div class="modeal-content">
+<div class="modal-content">
 
 <div class="modal-header">
 <span class="modal-title">Login</span>
@@ -251,6 +261,19 @@ function txCancel(){
     runSql('tx_end', 'ROLLBACK;', array());
 }
 
+function multiple($i, $total){
+    if($i == 0){
+        return '';
+    }else if($i == $total - 1){
+        if($i > 0){
+            return ', and ';
+        }else{
+            return ' and ';
+        }
+    }else{
+        return ', ';
+    }
+}
 
 #by mpyw from https://gist.github.com/johanmeiring/2894568#gistcomment-1586957
 if(!function_exists('str_putcsv')){
@@ -263,6 +286,162 @@ if(!function_exists('str_putcsv')){
         return $data;
     }
                                            }
+function san($x){
+    return filter_var($x, FILTER_SANITIZE_SPECIAL_CHARS);
+}
+
+function htmlId($name){
+    $id = base64_encode(random_bytes(16));
+    $id = substr($id, 0, 22);
+    $id = str_replace('/', 'q', $id);
+    $id = str_replace('+', 'Q', $id);
+    return $name.$id;
+}
+function userSelectionInput($name, $friendly_name){
+    $select_id = htmlId('select_user_');
+    $id = htmlId('hidden_form_');
+    $a = htmlId('_');
+
+    $js_submit = htmlId('search_submit_');
+    $select_change = htmlId('select_change_');
+    echo "<input type='hidden' name='$name' id='$id'/><span id='user_select_show$a'></span><button type='button' onclick='$js_submit();' class='btn btn-default' data-toggle='modal' data-target='#user_select_modal_$a'>Select $friendly_name</button>";
+    
+    $login_name_id = htmlId('login_name_');
+    $display_name_id = htmlId('dsiplay_name_');
+    $search_id = htmlId('search_');
+    $submit_button = htmlId('submit_');
+
+    echo "<script>
+var lastType$a = '';
+var users$a = '';
+var lastChange$a = 0;
+var lastSearchText$a = '';
+function $js_submit(fuhreal){
+function disableOption(msg){
+$select_change();
+$('#$select_id')[0].innerHTML = '<option disabled>'+msg+'</option>';
+}
+function updateSelect(){
+var sel = $('#$select_id')[0];
+sel.innerHTML = '';
+for(var i = 0; i < users$a.length; i++){
+if(users{$a}[i] == null){continue;}//necessary, unsure why...
+sel.innerHTML += '<option>'+(i+1)+'. '+users{$a}[i].login_name+' '+users{$a}[i].display_name+' '+users{$a}[i].uid+'</option>';
+}
+sel.selectedIndex = 0;
+$select_change();
+if(users$a.length == 0){
+disableOption('No results.');
+}
+}
+
+var type = $('#$login_name_id')[0].checked ? 'login_name' : 'display_name';
+var search = $('#$search_id')[0].value.toLowerCase();
+if(search.length < 3){
+disableOption('Enter at least 3 characters');
+}else{
+disableOption('Waiting...');
+if(!fuhreal && lastSearchText$a !== search){
+lastChange$a = new Date().getTime();
+setTimeout(function(){ $js_submit(true);}, 500);
+return;
+}
+if((lastSearchText$a == search &&  lastType$a == type) || new Date().getTime() - lastChange$a < 400){
+if(lastSearchText$a == search){
+updateSelect();
+}
+return;
+}
+lastType$a = type;
+lastSearchText$a = search;
+disableOption('Loading...');
+
+var searchObj = type == 'login_name' ? {login_name : search} : {display_name : search};
+$.post('search_users.php', searchObj, function(data, status){
+if(status != 'success'){
+disableOption('Request failed.');
+alert('Search request failed. Are you still connected to the inernet? ('+status+')');
+return;}
+
+disableOption('Parsing...');
+
+var num = parseInt(data);
+users$a = [];
+var index = data.indexOf(',')+1;
+for(var i = 0; i < num; i++){
+var next = data.indexOf(',', index);
+var _uid = data.substring(index, next);
+index = next+1;
+next = data.indexOf(',', index);
+var _login_name = data.substring(index, next);
+index = next+1;
+next = data.indexOf('\\n', index);
+var _display_name = data.substring(index, next);
+index = next+2;
+users{$a}[users$a.length+1] = {uid: _uid,
+login_name: _login_name,
+display_name: _display_name};
+}
+if(type == 'login_name'){
+users$a.sort(function(x, y){return x.login_name.compareTo(y.login_name)});
+}else{
+users$a.sort(function(x, y){return x.display_name.compareTo(y.display_name)});
+}
+
+updateSelect();
+    });
+
+}
+}
+var selected$a = null;
+function $select_change(){
+var sel = $('#$select_id')[0];
+selected$a = [].slice.call(sel.options).filter(function(x){return x.selected;});
+selected$a = selected$a.map(function(x){return users{$a}[parseInt(x.value)-1];});
+$('#$submit_button')[0].disabled = selected$a.length == 0;
+var show = $('#user_select_show$a')[0];
+var val = $('#$id')[0];
+show.textContent = '';
+val.value = '';
+for(var i = 0; i < selected$a.length; i++){
+show.textContent += (i == 0 ? '' : ', ') + selected{$a}[i].display_name;
+val.value += (i == 0 ? '' : ', ') + selected{$a}[i].uid;
+}
+}
+
+</script>";
+
+    return '
+<div class="modal face" role="dialog" id="user_select_modal_'.$a.'">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<div class="modal-header">
+<span class="modal-title">Select '.$friendly_name.'</span>
+<button class="close" data-dismiss="modal">x</button>
+</div>
+
+<div class="modal-body">
+Search by: <br/>
+<input type="radio" name="type" value="login_name" onchange="'.$js_submit.'()" id="'.$login_name_id.'" checked/><label for="'.$login_name_id.'"> Login Name</label><br/>
+<input type="radio" name="type" value="display_name" onchange="'.$js_submit.'()" id="'.$display_name_id.'"/><label for="'.$display_name_id.'"> Display Name</label><br/>
+Search: <input type="text" name="search" oninput="'.$js_submit.'()" id="'.$search_id.'" placeholder="Search Users"/>
+<select multiple class="form-control" id="'.$select_id.'" onchange="'.$select_change.'()">
+<option disabled>Search</a>
+</select>
+
+</div>
+<div class="modal-footer">
+
+<button style="float:left;" class="btn btn-primary" id="'.$submit_button.'" data-dismiss="modal" disabled>Select</button>
+<button style="float:left;" class="btn btn-default" data-dismiss="modal" onclick=\'selected'.$a.' = null; $("#'.$id.'")[0].value = null; $("#user_select_show'.$a.'")[0].textContent="";\'>Cancel</button>
+</div>
+
+</div>
+</div>
+</div>';
+}
+
 
 #function cleanSessions(){
 #    $old = runSql("get_old_sessions", 'SELECT sessionid FROM session_ WHERE start_time < $1;', array(time() - 10));
