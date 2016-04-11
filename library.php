@@ -186,7 +186,11 @@ function runSql1( $name, $stmt, $args){
     if($res === FALSE){
         return FALSE;
     }
-    return pg_fetch_assoc($res, 0);
+    if(pg_num_rows($res) > 0){
+        return pg_fetch_assoc($res, 0);
+    }else{
+        return FALSE;
+    }
 }
 function runSql1Col($name, $stmt, $args, $col){
     $res = runSql1($name, $stmt, $args);
@@ -221,8 +225,8 @@ function newSession($uid){
     $good = runSql("new_session", 'INSERT INTO session_ (sessionid, uid, last_ip, start_time) VALUES ($1, $2, $3, $4);', array($sessionid, $uid, $_SERVER['REMOTE_ADDR'], time()));    
     return $good ? $sessionid : FALSE;
 }
-function delSession($sessiond){
-    $good = runSql("del_session", 'DELETE FROM session_ WHERE session_id = $1;', array($sessionid));    
+function delSession($sessionid){
+    $good = runSql("del_session", 'DELETE FROM session_ WHERE sessionid = $1;', array($sessionid));    
     return $good;
 }
 function getUserRow($uid){
