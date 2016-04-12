@@ -54,6 +54,7 @@ if($logged_in === FALSE){
             $classid = pg_fetch_assoc($student_of, $i)['classid'];
             printClassFromId($classid);
             $decks = runSql('get_class_decks', 'SELECT * FROM class_deck_link WHERE classid = $1;', array($classid));
+            $boss = runSql1('get_boss', 'SELECT * FROM boss WHERE classid = $1 AND hp > 0;', array($classid));
             if(!$decks){
                 echo "<h4>Failed to retrieve decks for this class.</h4>";
             }else if(pg_num_rows($decks) == 0){
@@ -66,7 +67,7 @@ if($logged_in === FALSE){
                     if(!$deck){
                         echo '<li>Failed to retrieve deck info.</li>';
                     }else{
-                        echo "<li><a href='/answer_set.php?deckid=$deckid'>{$deck['display_name']}</a></li>";
+                        echo "<li><a href='/answer_set.php?deckid=$deckid&bossid={$boss['bossid']}'>{$deck['display_name']}</a></li>";
                     }
                 }
                 echo '</ul>';

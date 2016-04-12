@@ -60,6 +60,16 @@ Sessions of users currently logged in (session also a SQL reserved word).
 			display_name NCHAR VARYING NOT NULL
 			);  
 
+#`boss`
+
+		CREATE TABLE boss (  
+			bossid CHAR(24) PRIMARY KEY,  
+			classid CHAR(24) REFERENCES class(classid) NOT NULL,  
+			display_name NCHAR VARYING NOT NULL,  
+			img_url CHAR VARYING NOT NULL,  
+			hp INT NOT NULL  
+			);  
+
 #`class_teacher_link`
 
 		CREATE TABLE class_teacher_link (  

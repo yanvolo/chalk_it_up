@@ -27,14 +27,19 @@ needUserInfo();
 
 function printClassFromId($classid){
     $class = runSql1('get_class', 'SELECT * FROM class WHERE classid = $1;', array($classid));
+    $boss = runSql1('get_boss', 'SELECT * FROM boss WHERE classid = $1 AND hp > 0;', array($classid));
     if($class){
-        printClass($class);
+        printClass($class, $boss);
     }else{
         echo "<li><h3>Failed to retrieve info for class with id $classid</h3></li>";
     }
 }
-function printClass($class){
-    echo '<li><h3><a href="/classroom_detail.php?classid='.$class['classid'].'">'.$class['display_name'].'</a></h3></li>';
+function printClass($class, $boss){
+    echo '<li><h3><a href="/classroom_detail.php?classid='.$class['classid'].'">'.$class['display_name'].'</a>';
+    if($boss){
+        echo 'Current Boss: '.$boss['display_name'].' HP:'.$boss['hp'];
+    }
+    echo '</h3></li>';
 }
 
 if($logged_in === FALSE){
@@ -69,7 +74,14 @@ if($logged_in === FALSE){
         echo '<h2>Your decks: <a href="/create_set.php">Create New</a></h2><br/><ul>';
         for($i = 0; $i < pg_num_rows($decks); $i++){
             $deck = pg_fetch_assoc($decks, $i);
-            echo "<li><h4><a href='/answer_set.php?deckid={$deck['deckid']}'>{$deck['display_name']}</a></h4></li>";
+
+            $classid1 = runSql1('get_class_from_deck', 'SELECT * FROM class_deck_link WHERE deckid = $1;', array($deck['deckid']));
+            if($classid1){
+                $boss = runSql1('get_boss', 'SELECT * FROM boss WHERE classid = $1 AND hp > 0;', array($classid1['classid']));
+                echo "<li><h4><a href='/answer_set.php?deckid={$deck['deckid']}&bossid={$boss['bossid']}'>{$deck['display_name']}</a></h4></li>";
+            }else{
+                echo "<li><h4><a href='/answer_set.php?deckid={$deck['deckid']}'>{$deck['display_name']}</a></h4></li>";
+            }
         }
         echo '</ul>';
     }

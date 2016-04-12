@@ -20,7 +20,7 @@ if(!$is_admin){
                                                      <form action='new_class.php' method='POST'>
                                                      <input class="form-control" type='text' name='display_name' placeholder="Display Name class(display_name)"/><br/>
                                                      <?php $select_teacher_modal = userSelectionInput('teachers', 'Teachers');?><br/>
-                                                     <input class="btn btn-primary"" type='submit' value='Create'/><br/>
+                                                     <input class="btn btn-primary" type='submit' value='Create'/><br/>
                                                      </form>
 <?php echo $select_teacher_modal;?>
 
@@ -29,6 +29,15 @@ if(!$is_admin){
                                                      <input class="form-control" type='text' name='login_name' placeholder="Login Name"/><br/>
                                                      <input class="form-control" type='text' name='display_name' placeholder="Display Name"/><br/>
                                                      <input class="form-control" type='password' name='password' placeholder="(optional) Default Password"/><br/>
+                                                     <input class="btn btn-primary" type='submit' value='Create'/><br/>
+                                                     </form>
+
+                                                     <h2>Add boss</h2>
+                                                     <form action='new_boss.php' method='POST'>
+                                                     <input class="form-control" type='text' name='classid' placeholder="Class ID"/><br/>
+                                                     <input class="form-control" type='text' name='display_name' placeholder="Display Name"/><br/>
+                                                     <input class="form-control" type='text' name='img_url' placeholder="Image URL"/><br/>
+                                                     <input class="form-control" type='text' name='hp' placeholder="HP"/><br/>
                                                      <input class="btn btn-primary" type='submit' value='Create'/><br/>
                                                      </form>
 

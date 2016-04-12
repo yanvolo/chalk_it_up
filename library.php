@@ -115,7 +115,7 @@ function printNav(){
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 ' . (($logged_in === FALSE) ? '<li><button class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#loginModal">Login or Register</button></li>' :
-     ("<li><a href=\"/profile.php?login_name=$login_name\"> <i class="fa fa-user" aria-hidden="true"></i> " . $display_name . '</a></li><li><a href="/logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>')) . '
+     ("<li><a href=\"/profile.php?login_name=$login_name\">" . $display_name . '</a></li><li><a href="/logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>')) . '
 					</ul>
 				</div>
 			</div>
@@ -132,7 +132,7 @@ function printNav(){
 <form action="auth_native.php" method="post" onsubmit="$(\'#login_name_field\')[0].value = $(\'#login_name_field\')[0].value.toLowerCase();">
 <div class="modal-body">
 <p style="color: #'.((isset($_GET['fail_auth_native_msgid']) and $_GET['fail_auth_native_msgid'] != 5) ? 'f00' : '0b0').';">'. getLoginFailMsg() .'</p>
-<input class="form-control" type="text" name="login_name" placeholder="Username" value="'.(isset($_GET['fail_auth_login_name']) ? filter_var($_GET['fail_auth_login_name'], FILTER_SANITIZE_SPECIAL_CHARS) : '').'"/><br/>
+<input class="form-control" type="text" name="login_name" id="login_name_field" placeholder="Username" value="'.(isset($_GET['fail_auth_login_name']) ? filter_var($_GET['fail_auth_login_name'], FILTER_SANITIZE_SPECIAL_CHARS) : '').'"/><br/>
 <input class="form-control" type="password" name="secret" placeholder="Password"/><br/>
 <input class="form-control" type="hidden" name="callback" value="'.$_SERVER['REQUEST_URI'].'"></input>
 </div>
@@ -155,7 +155,7 @@ function printNav(){
 ';
 	}
 
-$rootDomain = "www.chalkitup.online";
+$rootDomain = "chalkitup.online";
 $protocol = "http://";
 $root = $protocol . $rootDomain . "/";
 

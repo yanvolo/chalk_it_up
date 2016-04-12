@@ -62,7 +62,10 @@ if(isset($_POST['chosen_answer']) and $_POST['chosen_answer'] != ''){
     $answers = str_getcsv($previous['answers_csv']);
     
     if(sha1($answers[0]) == $sha1_try){
-        $correct_msg =  "Good job, $display_name!";
+        $correct_msg =  "Good job, $display_name! You've dealt 5 damage to the boss.";
+        if(isset($_GET['bossid'])){
+            runSql('damage_boss', 'UPDATE boss SET hp = hp - $1 WHERE bossid = $2;', array(500, $_GET['bossid']));
+        }
         $was_correct = TRUE;
     }else{
         $correct_msg = "You're wrong, $display_name. The correct answer to '{$previous['long']}' is '{$answers[0]}'";
@@ -84,8 +87,6 @@ $answer2 = $possible_answers[1];
 $answer3 = $possible_answers[2];
 $answer4 = $possible_answers[3];
 
-doneWithSql();
-
 ?>
 
 <body>
@@ -101,7 +102,7 @@ echo "<div style='text-align: center;' class='alert ".($was_correct ? "alert-suc
 ";
 }
 
-echo "<form method='post' action='$protocol$rootDomain/answer_set.php?deckid=$deckid'>
+echo "<form method='post' action='$protocol$rootDomain/answer_set.php?deckid=$deckid&bossid={$_GET['bossid']}'>
 	
     <input type='hidden' name='cardid' value='{$question['cardid']}'>"
 ?>
@@ -128,10 +129,17 @@ echo "<form method='post' action='$protocol$rootDomain/answer_set.php?deckid=$de
 			<div class="col-lg-12 text-center" id="question">
     <span> <?php echo $question['long']; ?> </span>
     				<div class="progress">
-    					<?php $command;
+    					<?php 
+    if(isset($_GET['bossid'])){
+$boss = runSql1('get_boss', 'SELECT * FROM boss WHERE bossid = $1;', array($_GET['bossid']));
+$hp = $boss ? $boss['hp'] : 0;
+}else{
+$hp = 0;
+}
+doneWithSql();
     					
     					?>
-					<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="<?php echo /10000;?>%;" id="bar">
+					<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="width:<?php echo $hp/100;?>%;" id="bar">
 					<span class="sr-only"></span>
 				</div>
 			</div>

@@ -26,6 +26,7 @@ printNav();?>
 
 
 echo "<h1>{$class['display_name']}</h1>";
+echo "<h6>({$class['classid']})</h6>";
 
 $teachers = runSql('get_teachers', 'SELECT uid FROM class_teacher_link WHERE classid = $1;', array($classid));
 
