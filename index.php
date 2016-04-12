@@ -62,7 +62,7 @@ needUserInfo();
             	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             	    <h3> Education </h3>
                     <h4> ChalkItUp is an educational tool to help teach students the knowledge they need to succeed. </h4>
-                     <img class="small-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/sqrt-1_sketch.png"/>
+                     <img class="small-image"  style="background-color:none;" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/sqrt-1_sketch.png"/>
      			</div>
      			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
      				<h3> Teamwork </h3>
@@ -72,7 +72,7 @@ needUserInfo();
 						<span class="sr-only"></span>
 					  </div>
 					</div>
-      			<img class="big-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/chemisludge_digital.png"/>
+      			<img class="big-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/chemisludge_digital.png" style="background-color:none;"/>
      			</div>
      			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
      				<h3> Fun </h3>
