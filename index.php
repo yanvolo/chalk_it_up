@@ -20,6 +20,14 @@ needUserInfo();
 	.jumbotron{
 		margin:0px !important;
 	}
+	h3{
+		font-weight:bold;
+		font-size: 30px;
+	}
+	nav{
+		margin:0px !important;
+		
+	}
 	</style>
   </head>
   <body>
