@@ -28,6 +28,22 @@ needUserInfo();
 		margin:0px !important;
 		
 	}
+	.small-image{
+		width: 50%;
+		background-color: white;
+	}
+	.news-image{
+		height: 100px;
+		width: 300px;
+		background-color: white;
+	}
+	.bordered-image{
+		width: 100%;
+		background-color: white;
+		border-style: solid;
+		border-width: 27px 0px;
+		border-color: white;
+	}
 	</style>
   </head>
   <body>
@@ -47,6 +63,7 @@ needUserInfo();
             	<div class="col-lg-4">
             	    <h3> Education </h3>
                     <h4> ChalkItUp is an educational tool to help teach students the knowledge they need to succeed. </h4>
+                     <img class="small-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/sqrt-1_sketch.jpg"/>
      			</div>
      			<div class="col-lg-4">
      				<h3> Teamwork </h3>
@@ -63,103 +80,50 @@ needUserInfo();
 			</div>
 	<div class="jumbotron text-center" id="blackboard">
 		<div class="container">
-			<h1 style='color:white'> News </h1>
+			<h1 style='color:white'> News and Plans </h1>
 			<p style='color:white'>  The going ons of Chalk it Up! </p>
 			
 		</div>
 	</div>
-			//delete this section when finished
-		<div class="row">
-   			<div class="col-lg-6">
- 		<figure>
-		    <h3> SQRT-1 (Mathematics) </h3>
-			<img class="big-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/sqrt-1_sketch.jpg"/>
-		</figure>
-		<figure>
-			<h3> Grock (Social Studies) </h3>
-			<img class="big-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/grock_sketch.jpg"/>
-		</figure>
-     		</div>
-     		<div class="col-lg-6">
-      	<figure>
-			<h3> Chemisludge (Science) </h3>
-			<img class="big-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/chemisludge_digital.jpg"/>
-		</figure>
-		<figure>
-			<h3> Bookworm (Language Arts) </h3>
-			<img class="big-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/bookworm_sketch.jpg"/>
-		</figure>
-		<div class="container">
-			<container>
+	<div class="container">
+			
 				<div class="page-header" id="features">
-					<h2> Features <small> This is still not feedback </small> </h2>
+					<h2> News and Updates <small> What's happening? </small> </h2>
 				</div>
 
 				<div class="row">
 					<div class="col-lg-8">
-						<h3> This is the heading </h3>
-						<p> More lorum ipsum text that does not matter </p>
+						<h3> IT Expo at UC (4/12/16) </h3>
+						<p> Walnut Hills INTERalliance presentation of ChalkItUp at University of Cincinnati at 10 AM. Be there by 8:30 AM. </p>
 					</div>
 					<div class="col-lg-4">
-						<img src="img/imac.jpg" class="img-responsive" alt="image">
+					<center> <img class="news-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/uc.png" /> </center>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-8">
+						<h3> INTERalliance Meeting (4/14/16) </h3>
+						<p> INTERalliance meeting after school to discuss information technology and business, as well as future plans for the club. </p>
+					</div>
+					<div class="col-lg-4">
+					<center> <img class="news-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/interalliance.jpg" /> </center>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="col-lg-8">
-						<h3> This is the heading </h3>
-						<p> More lorum ipsum text that does not matter </p>
+						<h3> Gaming Day (4/21/16) </h3>
+						<p> INTERalliance will host a gaming day, where we will play and discuss videogames and their impact in the IT field. </p>
 					</div>
 					<div class="col-lg-4">
-						<img src="img/smartphone.jpg" class="img-responsive" alt="image">
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-lg-8">
-						<h3> This is the heading </h3>
-						<p> More lorum ipsum text that does not matter </p>
-					</div>
-					<div class="col-lg-4">
-						<img src="img/user.jpg" class="img-responsive" alt="image">
+					<center> <img class="news-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/game.png" /> </center>
 					</div>
 				</div>
 
 				<hr>
 
-				<div class="row">
-					<div class="col-lg-4">
-							<div class="panel panel-default">
-								<div class="panel-body text-center">
-									<span class="glyphicon glyphicon-info-sign"> </span>
-									<h4> Sure</h4>
-									<p> This is more content</h4>
-								</div>
-							</div>
-					</div>
-
-					<div class="col-lg-4">
-							<div class="panel panel-default">
-								<div class="panel-body text-center">
-									<h4> Sure</h4>
-									<p> This is more content</h4>
-								</div>
-							</div>
-					</div>
-
-					<div class="col-lg-4">
-							<div class="panel panel-default">
-								<div class="panel-body text-center">
-									<h4> Sure</h4>
-									<p> This is more content</h4>
-								</div>
-							</div>
-					</div>
-
-
-				</div>
-			</container>
-		</div>
+			
+		</div>		
 
   </body>
 
