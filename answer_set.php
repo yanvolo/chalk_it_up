@@ -127,6 +127,10 @@ echo "<form method='post' action='$protocol$rootDomain/answer_set.php?deckid=$de
 		<div class="row well question-area">
 			<div class="col-lg-12 text-center" id="question">
     <span> <?php echo $question['long']; ?> </span>
+    				<div class="progress">
+					<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="<?php ?>%;" id="bar">
+					<span class="sr-only"></span>
+				</div>
 			</div>
 		</div>
 		<div class="row">
