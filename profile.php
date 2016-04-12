@@ -49,11 +49,14 @@ if($invalid_profile === FALSE){
 </head>
 <body>
 <?php
-printNav();
+printNav();?>
+<div class="container"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<?php
 
 echo $invalid_profile ? $invalid_profile : 
     ($profile_display_name . "<br/>he's a pretty cool guy.");
 
 ?>
+</div></div>
 </body>
 </html>
