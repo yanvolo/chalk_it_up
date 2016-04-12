@@ -34,7 +34,7 @@ needUserInfo();
 	<?php printNav();?>
 	<div class="jumbotron text-center" id="blackboard">
 		<div class="container">
-			<h1 style='color:white'> Welcome to Chalk up! </h1>
+			<h1 style='color:white'> Welcome to ChalkItUp! </h1>
 			<p style='color:white'>  Fun Learning throughout the day! </p>
 			
 		</div>
