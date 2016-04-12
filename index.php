@@ -86,11 +86,6 @@ needUserInfo();
 		</div>
 	</div>
 	<div class="container">
-			
-				<div class="page-header" id="features">
-					<h2> News and Updates <small> What's happening? </small> </h2>
-				</div>
-
 				<div class="row">
 					<div class="col-lg-8">
 						<h3> IT Expo at UC (4/12/16) </h3>
