@@ -17,6 +17,9 @@ needUserInfo();
 		width: 100%;
 		background-color:black;
 	}
+	.jumbotron{
+		margin:0px !important;
+	}
 	</style>
   </head>
   <body>
@@ -47,9 +50,16 @@ needUserInfo();
       				<h4> Entertaining visuals and trivia create an enjoyable experience that keeps students focused. </h4>
       			<img class="big-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/UI.png"/>
      			</div>
-    		</div> <center>
+    		</div> 
 				</div>
 			</div>
+	<div class="jumbotron text-center" id="blackboard">
+		<div class="container">
+			<h1 style='color:white'> News </h1>
+			<small style='color:white'>  The going ons of Chalk it Up! </small>
+			
+		</div>
+	</div>
 			//delete this section when finished
 		<div class="row">
    			<div class="col-lg-6">
