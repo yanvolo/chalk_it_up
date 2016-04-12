@@ -85,6 +85,7 @@ function getLoginFailMsg(){
     case 2: return "Invalid password.";
     case 3: return "Internal server error (your account has an invalid hash type).";
     case 4: return "You did everything right, but i failed to create a session for you ¯\_('')_/¯";
+    case 5: return "User {$_GET['fail_auth_login_name']} created. You may now login :D";
     default: return "";
     }
 }
@@ -113,7 +114,7 @@ function printNav(){
 ($is_admin ? '<li><a href="admin.php">Admin</a></li>' : '' ).'
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-' . (($logged_in === FALSE) ? '<li><a data-toggle="modal" data-target="#loginModal">Login</a></li>' :
+' . (($logged_in === FALSE) ? '<li><button class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#loginModal">Login or Register</button></li>' :
      ("<li><a href=\"/profile.php?login_name=$login_name\">" . $display_name . '</a></li><li><a href="/logout.php">Logout</a></li>')) . '
 					</ul>
 				</div>
@@ -128,19 +129,20 @@ function printNav(){
 <button class="close" data-dismiss="modal">x</button>
 </div>
 
-<form action="auth_native.php" method="post">
+<form action="auth_native.php" method="post" onsubmit="$(\'#login_name_field\')[0].value = $(\'#login_name_field\')[0].value.toLowerCase();">
 <div class="modal-body">
 <p style="color: #f00;">'. getLoginFailMsg() .'</p>
-<input type="text" name="login_name" placeholder="Username" value="'.(isset($_GET['fail_auth_login_name']) ? filter_var($_GET['fail_auth_login_name'], FILTER_SANITIZE_SPECIAL_CHARS) : '').'"/><br/>
-<input type="password" name="secret" placeholder="Password"/><br/>
-<input type="hidden" name="callback" value="'.$_SERVER['REQUEST_URI'].'"></input>
+<input class="form-control" type="text" name="login_name" placeholder="Username" value="'.(isset($_GET['fail_auth_login_name']) ? filter_var($_GET['fail_auth_login_name'], FILTER_SANITIZE_SPECIAL_CHARS) : '').'"/><br/>
+<input class="form-control" type="password" name="secret" placeholder="Password"/><br/>
+<input class="form-control" type="hidden" name="callback" value="'.$_SERVER['REQUEST_URI'].'"></input>
 </div>
 <div class="modal-footer">
 
 <input style="float:left;" class="btn btn-primary" type="submit" value="Login"/>
 <button style="float:left;" class="btn btn-default" data-dismiss="modal">Cancel</button>
 <br/><br/>
-<div class="g-signin2 navbar-btn" data-onsuccess="onSignIn" data-theme="dark"></div>
+<a href="/register.php"><button type="button" style="float:left; margin-right:.5em;" class="btn btn-success">Register</button></a>
+<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 </div>
 </form>
 

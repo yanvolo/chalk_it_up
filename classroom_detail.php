@@ -7,7 +7,7 @@ $classid = $_GET['classid'];
 $student = runSql1('is_student_of_class', 'SELECT * FROM class_student_link WHERE uid = $1 AND classid = $2;', array($uid, $classid));
 $teacher = runSql1('is_teacher_of_class', 'SELECT * FROM class_teacher_link WHERE uid = $1 AND classid = $2;', array($uid, $classid));
 
-    if(!($student or $teacher)){die("You are not part of this class, or it does not exist. $goHome");}
+if(!($student or $teacher)){die("You are not part of this class, or it does not exist. $goHome");}
 
 $class = runSql1('get_class', 'SELECT * FROM class WHERE classid = $1;', array($classid)) or die('Internal server error: failed to get class info.');
 ?>
@@ -41,10 +41,25 @@ echo '</h3>';
 $students = runSql('get_students', 'SELECT uid FROM class_student_link WHERE classid = $1;', array($classid));
 $students_count = pg_num_rows($students);
 if($students_count == 0){
-    echo '<h3>There are no students (which is probably not a good thing)</h3><ul>';
+    echo '<h3>There are no students (which is probably not a good thing)</h3>';
 }else{
-    echo '<h3>Students:</h3><ul>';
+    echo '<h3>Students:</h3>';
 }
+
+if($teacher){
+    echo "<form action='add_students.php' method='POST'>
+<input type='hidden' name='classid' value='$classid'/>
+";
+    $select_students_modal = userSelectionInput('students', 'Students to add');
+                                                echo "<input type='submit' value='Submit'/>
+</form><br/>";
+                                                echo $select_students_modal;
+
+}
+
+
+
+echo '<ul>';
 for($i = 0; $i < $students_count; $i++){
     $student = getUserRow(pg_fetch_assoc($students, $i)['uid']);
     echo "<li><a href='/profile.php?login_name={$student['login_name']}'>{$student['display_name']}</a></li>";

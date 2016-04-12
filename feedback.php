@@ -1,10 +1,11 @@
+<?php 
+require "library.php";
+needUserInfo();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
   <head xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
-    <?php 
-		require "library.php";
-		needUserInfo();
+<?php
 		printDeps();
 	?>
      <title>Chalk it up!</title>
@@ -15,8 +16,8 @@
 	</style>
   </head>
   <body>
-	<?php printNav(); ?>
-	<div class="row">
+<?php printNav();?>
+<div class="row">
 		<div class="col-lg-10 col-lg-offset-1 well">
 				<h3> Feedback </h3>
 				<p> Write to use and let us know how we are doing </p>

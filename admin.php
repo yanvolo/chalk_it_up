@@ -23,7 +23,16 @@ if(!$is_admin){
                                                      </form>
 <?php echo $select_teacher_modal;?>
 
+                                                     <h2>Add user</h2>
+                                                     <form action='new_user.php' method='POST'>
+                                                     <input type='text' name='login_name' placeholder="Login Name"/><br/>
+                                                     <input type='text' name='display_name' placeholder="Display Name"/><br/>
+                                                     <input type='password' name='password' placeholder="(optional) Default Password"/><br/>
+                                                     <input type='submit' value='Create'/><br/>
+                                                     </form>
+
 
 
 </body>
-
+                                                     <html>
+                                                     
