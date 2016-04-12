@@ -14,12 +14,13 @@ if(!$is_admin){
 <body>
 <?php printNav();?>
 <div class="container">
+    <div class="col-lg-12">
 <h1>Admin</h!>
                                                      <h2>Add class</h2>
                                                      <form action='new_class.php' method='POST'>
                                                      <input class="form-control" type='text' name='display_name' placeholder="Display Name class(display_name)"/><br/>
                                                      <?php $select_teacher_modal = userSelectionInput('teachers', 'Teachers');?><br/>
-                                                     <input class="form-control" type='submit' value='Create'/><br/>
+                                                     <input class="btn btn-primary"" type='submit' value='Create'/><br/>
                                                      </form>
 <?php echo $select_teacher_modal;?>
 
@@ -28,11 +29,11 @@ if(!$is_admin){
                                                      <input class="form-control" type='text' name='login_name' placeholder="Login Name"/><br/>
                                                      <input class="form-control" type='text' name='display_name' placeholder="Display Name"/><br/>
                                                      <input class="form-control" type='password' name='password' placeholder="(optional) Default Password"/><br/>
-                                                     <input class="form-control" type='submit' value='Create'/><br/>
+                                                     <input class="btn btn-primary" type='submit' value='Create'/><br/>
                                                      </form>
 
 
-</div>
+</div></div>
 </body>
                                                      <html>
                                                      
