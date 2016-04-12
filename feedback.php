@@ -11,7 +11,8 @@ needUserInfo();
      <title>Chalk it up!</title>
 	<style>
 		text-area{
-			resize:vertical;
+			resize: none;
+			overflow: auto;
 		}
 	</style>
   </head>
