@@ -108,10 +108,10 @@ function printNav(){
 				</div>
 				<div class="collapse navbar-collapse" id="my-nav">
 					<ul class="nav navbar-nav">'.
-($logged_in ? '<li><a href="play_home.php"> Play </a> </li>
-						<li><a href="classrooms_home.php"> Classrooms </a> </li>
-						<li><a href="feedback.php"> Feedback </a> </li>' : '').
-($is_admin ? '<li><a href="admin.php">Admin</a></li>' : '' ).'
+($logged_in ? '<li><a href="play_home.php"> <i class="fa fa-gamepad" aria-hidden="true"></i> Play </a> </li>
+						<li><a href="classrooms_home.php"> <i class="fa fa-table" aria-hidden="true"></i>Classrooms </a> </li>
+						<li><a href="feedback.php"> <i class="fa fa-smile-o" aria-hidden="true"></i> Feedback </a> </li>' : '').
+($is_admin ? '<li><a href="admin.php"><i class="fa fa-cog" aria-hidden="true"></i> Admin</a></li>' : '' ).'
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 ' . (($logged_in === FALSE) ? '<li><button class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#loginModal">Login or Register</button></li>' :
