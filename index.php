@@ -33,8 +33,7 @@ needUserInfo();
 		background-color: white;
 	}
 	.news-image{
-		height: 100px;
-		width: 300px;
+		width: 100%;
 		background-color: white;
 	}
 	.bordered-image{
