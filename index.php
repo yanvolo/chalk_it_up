@@ -64,7 +64,7 @@ needUserInfo();
 	<div class="jumbotron text-center" id="blackboard">
 		<div class="container">
 			<h1 style='color:white'> News </h1>
-			<small style='color:white'>  The going ons of Chalk it Up! </small>
+			<p style='color:white'>  The going ons of Chalk it Up! </p>
 			
 		</div>
 	</div>
