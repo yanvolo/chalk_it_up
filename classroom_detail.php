@@ -19,7 +19,10 @@ $class = runSql1('get_class', 'SELECT * FROM class WHERE classid = $1;', array($
 <body>
 
 <?php
-printNav();
+printNav();?> 
+<div class="container"> <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+<?php
 
 
 echo "<h1>{$class['display_name']}</h1>";
@@ -67,6 +70,6 @@ for($i = 0; $i < $students_count; $i++){
 echo '</ul>';
 
 ?>
-
+</div></div>
 </body>
 </html>
