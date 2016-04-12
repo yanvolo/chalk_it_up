@@ -115,7 +115,7 @@ function printNav(){
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 ' . (($logged_in === FALSE) ? '<li><button class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#loginModal">Login or Register</button></li>' :
-     ("<li><a href=\"/profile.php?login_name=$login_name\">" . $display_name . '</a></li><li><a href="/logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>')) . '
+     ("<li><a href=\"/profile.php?login_name=$login_name\"> <i class="fa fa-user" aria-hidden="true"></i> " . $display_name . '</a></li><li><a href="/logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>')) . '
 					</ul>
 				</div>
 			</div>
