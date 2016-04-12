@@ -76,6 +76,14 @@ Sessions of users currently logged in (session also a SQL reserved word).
 			PRIMARY KEY(classid, uid)  
 			);  
 
+#`class_deck_link`
+
+		CREATE TABLE class_deck_link (  
+			classid CHAR(24) REFERENCES class(classid),  
+			deckid CHAR(24) REFERENCES deck(deckid),  
+			PRIMARY KEY(classid, deckid)  
+			);  
+
 #`deck`
 
 		CREATE TABLE deck (  

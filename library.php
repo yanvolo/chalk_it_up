@@ -131,7 +131,7 @@ function printNav(){
 
 <form action="auth_native.php" method="post" onsubmit="$(\'#login_name_field\')[0].value = $(\'#login_name_field\')[0].value.toLowerCase();">
 <div class="modal-body">
-<p style="color: #f00;">'. getLoginFailMsg() .'</p>
+<p style="color: #'.((isset($_GET['fail_auth_native_msgid']) and $_GET['fail_auth_native_msgid'] != 5) ? 'f00' : '0b0').';">'. getLoginFailMsg() .'</p>
 <input class="form-control" type="text" name="login_name" placeholder="Username" value="'.(isset($_GET['fail_auth_login_name']) ? filter_var($_GET['fail_auth_login_name'], FILTER_SANITIZE_SPECIAL_CHARS) : '').'"/><br/>
 <input class="form-control" type="password" name="secret" placeholder="Password"/><br/>
 <input class="form-control" type="hidden" name="callback" value="'.$_SERVER['REQUEST_URI'].'"></input>

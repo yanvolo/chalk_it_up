@@ -1,8 +1,15 @@
+<?php
+require 'library.php';
+needUserInfo();
+if($logged_in === FALSE){
+    header("Location: ".$root);
+}
+?>
 <!DOCTYPE html>
 
 <html>
 <head>
-	<?php require 'library.php'; needUserInfo(); printDeps(); ?>
+	<?php printDeps(); ?>
 	<style>
 		.answer-choice{
 			width:100%;
@@ -17,108 +24,126 @@
 	</style>
 </head>
 <?php
-	//SQL Config
-	$servername = "localhost";		
-	$username = "root";				
-	$password = "tuesday";				
-	$dbname = "chalkitDB";
-	
-	// Create connection
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
-	if (!$conn) {
-		die("Connection failed: " . mysqli_connect_error());
-	}	
-	
-	$deckID = "1135093967";
-	//get things from the table
-	//to use other sets, use replace all and replace occurances of "english1" with the set name
-	//Load new questions
-	$sql = "SELECT * FROM card_$deckID";
-	$result = $conn->query($sql);
-	
-	//checks to see if answer has been chosen. if true, evaluates correctness of previous
-	//question. if false, skips this step and moves on to the next
-	if(isset($_POST['chosen_answer'])) 
-	{ 
-		$previous_id = $_POST['question_id'];
-		$answer_queue = "SELECT Answer FROM card_$deckID WHERE CardNumber='" . (int)$previous_id . "'";
-		$result_selected = $conn->query($answer_queue);
-		$row = $result_selected->fetch_assoc();
-		$correct_answer = $row["Answer"];
-		$user_answer = $_POST['chosen_answer'];
-		echo "User Has submitted the form and entered this answer : <b> $user_answer </b><br>";
-		echo "Correct Answer was : <b> $correct_answer </b><br>";
-		if (strcmp($user_answer,$correct_answer)==0)
-			echo "Good job!";
-		else echo "Ur wrong noob.";
-	}
+sql();
 
-	
-	//really messy code to select random question
-	$total_rows = $result->num_rows;
-	$row_num = mt_rand(1,$total_rows);
-	$selected_row = "SELECT * FROM card_$deckID WHERE CardNumber='".$row_num."'";
-	$result_selected_row = $conn->query($selected_row);
-	$current_row = $result_selected_row ->fetch_assoc();
-	
-	$id = $current_row["CardNumber"];
-	$question = $current_row["Question"];
-		
-	$possible_answers = array($current_row["Answer"],$current_row["Distractor1"],$current_row["Distractor2"], $current_row["Distractor3"]);
-	
-	shuffle($possible_answers);
-	
-	$answer1 = truncate_string($possible_answers[0],22);
-	$answer2 = truncate_string($possible_answers[1],22);
-	$answer3 = truncate_string($possible_answers[2],22);
-	$answer4 = truncate_string($possible_answers[3],22);
-	//close connection
-	$conn->close();
-	
+if(!isset($_GET['deckid']) or $_GET['deckid'] == ''){die("No deck was specified. $goHome");}
+
+$deckid = $_GET['deckid'];
+
+$deck = runSQL1('get_deck', 'SELECT * FROM deck WHERE deckid = $1;', array($deckid)) or die('failed to get deck '.$deckid);
+$cards_csv = $deck['questionids_csv'];
+$card_ids = str_getcsv($cards_csv);
+$cards = array();
+foreach($card_ids as $cardid){
+    $card = runSql1('get_card', 'SELECT * FROM card WHERE cardid = $1;', array($cardid)) or die('failed to get card '.$cardid);
+    array_push($cards, $card);
+}
+
+$cardix = -1;
+if(isset($_POST['cardid']) and $_POST['cardid'] != ''){
+    for($i = 0; $i < count($cards); $i++){
+        if($cards[$i]['cardid'] == $_POST['cardid']){
+            $cardid = $card['cardid'];
+            $cardix = $i;
+        }
+    }
+    if($cardix === -1){
+        die("Card '{$_POST['cardid']}' does not exist in set '$deckid'. $goHome");
+    }
+}
+
+//checks to see if answer has been chosen. if true, evaluates correctness of previous
+//question. if false, skips this step and moves on to the next
+$correct_msg = NULL;
+$was_correct = NULL;
+if(isset($_POST['chosen_answer']) and $_POST['chosen_answer'] != ''){ 
+    $previous = $cards[$cardix];
+    $sha1_try = base64_decode($_POST['chosen_answer']);
+    $answers = str_getcsv($previous['answers_csv']);
+    
+    if(sha1($answers[0]) == $sha1_try){
+        $correct_msg =  "Good job, $display_name!";
+        $was_correct = TRUE;
+    }else{
+        $correct_msg = "You're wrong, $display_name. The correct answer to '{$previous['long']}' is '{$answers[0]}'";
+        $was_correct = FALSE;
+    }
+}
+
+$next = rand(0, count($cards) - 1 - ($cardix == -1 ? 0 : 1));
+if($cardix != -1 and $next >= $cardix){$next++;}
+
+$question = $cards[$next];
+
+$possible_answers = str_getcsv($question['answers_csv']);
+
+shuffle($possible_answers);
+
+$answer1 = $possible_answers[0];
+$answer2 = $possible_answers[1];
+$answer3 = $possible_answers[2];
+$answer4 = $possible_answers[3];
+
+doneWithSql();
+
 ?>
 
 <body>
-	<?php printNav(); ?>
+<?php
+printNav(); 
 
-	<!-- 
-	This is the actual form that is displayed.
-	The answers will be randomized.
-	To make it look prettier, just add some CSS.
-	-->
+echo "<div class='container'>";
 
+if($was_correct !== NULL){
+echo "<div style='text-align: center;' class='alert ".($was_correct ? "alert-success" : "alert-danger")."' role='alert'>
+ $correct_msg
+</div>
+";
+}
+
+echo "<form method='post' action='$protocol$rootDomain/answer_set.php?deckid=$deckid'>
 	
-	<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-	
-		<input type="hidden" name="question_id" value=<?php echo "\"" . $id . "\"" ?>>
+    <input type='hidden' name='cardid' value='{$question['cardid']}'>"
+?>
+<style>
+    button[type="submit"] {
+        white-space: normal;
+    }
+.row {
+
+ }
+</style>
 		<div class="row">
 			<div class="button-group">
 				<div class="col-lg-6">
-					<input type="submit" name="chosen_answer" value=<?php echo "\"" . $answer1 . "\"" ?> class="answer-choice btn btn-primary" id="answer-1">
+
+    <button type="submit" name="chosen_answer" value=<?php echo base64_encode(sha1($answer1)); ?> class="answer-choice btn btn-primary" id="answer-1"><?php echo $answer1;?></button>
 				</div>
 				<div class="col-lg-6">
-					<input type="submit" name="chosen_answer" value=<?php echo "\"" . $answer2 . "\"" ?> class="answer-choice btn btn-warning" id="answer-2">
+    <button type="submit" name="chosen_answer" value=<?php echo base64_encode(sha1($answer2)); ?> class="answer-choice btn btn-warning" id="answer-2"><?php echo $answer2;?></button>
 				</div>
 			</div>
 		</div>
 		<div class="row well question-area">
 			<div class="col-lg-12 text-center" id="question">
-				<span> <?php echo $question ?> </span>
+    <span> <?php echo $question['long']; ?> </span>
 			</div>
 		</div>
 		<div class="row">
 			<div class="button-group">
 				<div class="col-lg-6">
-					<input type="submit" name="chosen_answer" value=<?php echo "\"" . $answer3 . "\"" ?> class="answer-choice btn btn-danger" id="answer-3">
+    <button type="submit" name="chosen_answer" value=<?php echo base64_encode(sha1($answer3)); ?> class="answer-choice btn btn-danger" id="answer-3"><?php echo $answer3;?></button>
 				</div>
 				<div class="col-lg-6" id="answer-4">
-					<span><input type="submit" name="chosen_answer" value=<?php echo "\"" . $answer4 . "\"" ?> class="answer-choice btn btn-success" ></span>
+    <span><button type="submit" name="chosen_answer" value=<?php echo base64_encode(sha1($answer4)); ?> class="answer-choice btn btn-success" ><?php echo $answer4;?></button></span>
 				</div>
 			</div>
 		</div>
 	
 	</form>
-	<script type="text/javascript">
-			$(".answer-choice").fitText(1.1, { minFontSize: '12px', maxFontSize: '70px' });
-			$("#question").fitText(1.1, { minFontSize: '12px', maxFontSize: '70px' });
+</div>
+	<script>
+$(".answer-choice").fitText();
+$("#question").fitText(1.4);
 	</script>
 </body>

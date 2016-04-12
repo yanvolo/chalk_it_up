@@ -41,12 +41,13 @@ if($logged_in === FALSE){
     echo '<h1>You must <a data-toggle="modal" data-target="#loginModal" href="javascript:true">login</a> to view your classes.</ht>';
 }else{
     $student_of = runSql('student_of', 'SELECT classid FROM class_student_link WHERE uid = $1;', array($uid)) or die('<h1>Failed to retrieve your classes</h1>');
-    $teacher_of = runSql('student_of', 'SELECT classid FROM class_teacher_link WHERE uid = $1;', array($uid)) or die('<h1>Failed to retrieve your classes</h1>');
+    $teacher_of = runSql('teacher_of', 'SELECT classid FROM class_teacher_link WHERE uid = $1;', array($uid)) or die('<h1>Failed to retrieve your classes</h1>');
     if(pg_num_rows($teacher_of) > 0 ){
         echo '<h2>You teach:</h2><br/><ul>';
         for($i = 0; $i < pg_num_rows($teacher_of); $i++){
             printClassFromId(pg_fetch_assoc($teacher_of, $i)['classid']);
         }
+        echo '</ul>';
     }
     if(pg_num_rows($student_of) === 0){
         if(pg_num_rows($teacher_of) === 0){
@@ -57,7 +58,24 @@ if($logged_in === FALSE){
         for($i = 0; $i < pg_num_rows($student_of); $i++){
             printClassFromId(pg_fetch_assoc($student_of, $i)['classid']);
         }
+        echo '</ul>';
     }
+    
+    
+    $decks = runSql('get_owned_decks', 'SELECT * FROM deck WHERE owner = $1;', array($uid)) or die('<h1>Failed to retrieve your decks.</h1>');
+    if(pg_num_rows($decks) === 0){
+        echo '<h2>You do not own any decks. <a href="/create_set.php">How about creating one?</a></h2>';
+    }else{
+        echo '<h2>Your decks: <a href="/create_set.php">Create New</a></h2><br/><ul>';
+        for($i = 0; $i < pg_num_rows($decks); $i++){
+            $deck = pg_fetch_assoc($decks, $i);
+            echo "<li><h4><a href='/answer_set.php?deckid={$deck['deckid']}'>{$deck['display_name']}</a></h4></li>";
+        }
+        echo '</ul>';
+    }
+    
+
+
 }
 ?>
 </div>

@@ -54,7 +54,7 @@ if($teacher){
 <input type='hidden' name='classid' value='$classid'/>
 ";
     $select_students_modal = userSelectionInput('students', 'Students to add');
-                                                echo "<input type='submit' class="btn" value='Submit'/>
+                                                echo "<input type='submit' class='btn' value='Submit'/>
 </form><br/>";
                                                 echo $select_students_modal;
 
