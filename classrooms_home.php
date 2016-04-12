@@ -23,7 +23,7 @@ needUserInfo();
 	
   </head>
   <body> 
-		<?php printNav(); ?> <div class="container"> <?php
+		<?php printNav(); ?> <div class="container"> <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> <?php
 
 function printClassFromId($classid){
     $class = runSql1('get_class', 'SELECT * FROM class WHERE classid = $1;', array($classid));
@@ -62,7 +62,7 @@ if($logged_in === FALSE){
 ?>
 </div>
 
-
+</div>
   </body>
 
 </html>
