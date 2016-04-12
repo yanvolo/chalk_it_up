@@ -15,7 +15,6 @@ needUserInfo();
 	}
 	.big-image{
 		width: 100%;
-		background-color:black;
 	}
 	.jumbotron{
 		margin:0px !important;
@@ -30,7 +29,6 @@ needUserInfo();
 	}
 	.small-image{
 		width: 50%;
-		background-color: white;
 	}
 	.news-image{
 		width: 100%;
