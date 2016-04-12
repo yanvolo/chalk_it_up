@@ -49,6 +49,7 @@ function printDeps(){
 <link rel="stylesheet" href="css/default.css"></link>
 <script src="http://code.jquery.com/jquery-2.2.2.js" ></script>
 <script src="js/bootstrap.min.js" ></script><script src="js/jquery.fittext.js"></script>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 ';
     if($logged_in === FALSE){
         echo '    <script>
