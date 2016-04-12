@@ -66,6 +66,11 @@ needUserInfo();
      			</div>
      			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
      				<h3> Teamwork </h3>
+     				<div class="progress">
+					  <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="width:30%" id="bar">
+						<span class="sr-only"></span>
+					  </div>
+					</div>
       				<h4> Students work together in classrooms to defeat "enemies" and reach the goal of gaining knowledge. </h4>
       			<img class="big-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/bosses/chemisludge_digital.jpg"/>
      			</div>
@@ -117,7 +122,28 @@ needUserInfo();
 				<hr>
 
 			
-		</div>		
+		</div>	
+		<script type="text/javascript">
+			  var width = 30;
+	  $(document).ready(function(){
+		
+		setInterval(animateBar, 100)
+		setInterval(addJerk, 1500);
+	  });
+	  function addJerk(){
+		 width+=10;
+		 $("#bar").css({'width':width+'%'});
+	  }
+	  function animateBar(){
+		if(width<=0){
+			width=100;
+		}
+		else{
+			width--;
+		}
+		$("#bar").css({'width':width+'%'});
+	  }
+    </script>
 
   </body>
 
