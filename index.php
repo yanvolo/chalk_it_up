@@ -93,7 +93,7 @@ needUserInfo();
 				<div class="row">
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						<h3> IT Expo at UC (4/12/16) </h3>
-						<p> Walnut Hills INTERalliance presentation of ChalkItUp at University of Cincinnati at 10 AM. Be there by 8:30 AM. </p>
+						<p> Walnut Hills INTERalliance presentation of ChalkItUp at University of Cincinnati at 10 AM and website launch. Be there by 8:30 AM to prepare for presentation and to watch the website go live. </p>
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					<center> <img class="news-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/uc.png" /> </center>
@@ -102,7 +102,7 @@ needUserInfo();
 				<div class="row">
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						<h3> INTERalliance Meeting (4/14/16) </h3>
-						<p> INTERalliance meeting after school to discuss information technology and business, as well as future plans for the club. </p>
+						<p> INTERalliance meeting after school to discuss information technology and business, as well as future plans for the club and the web project next year. </p>
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					<center> <img class="news-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/interalliance.jpg" /> </center>
@@ -112,7 +112,7 @@ needUserInfo();
 				<div class="row">
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						<h3> Gaming Day (4/21/16) </h3>
-						<p> INTERalliance will host a gaming day, where we will play and discuss videogames and their impact in the IT field. </p>
+						<p> INTERalliance will host a gaming day, where we will play and discuss videogames and their impact in the IT field. But really, we mostly just play games.</p>
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					<center> <img class="news-image" src="https://www.googledrive.com/host/0B9YkvbHM062yZTJzdGtGUi1jelk/img/game.png" /> </center>
