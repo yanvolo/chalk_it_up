@@ -109,23 +109,23 @@ function printNav(){
 				<div class="collapse navbar-collapse" id="my-nav">
 					<ul class="nav navbar-nav">'.
 ($logged_in ? '<li><a href="play_home.php"> <i class="fa fa-gamepad" aria-hidden="true"></i> Play </a> </li>
-						<li><a href="classrooms_home.php"> <i class="fa fa-table" aria-hidden="true"></i>Classrooms </a> </li>
+						<li><a href="classrooms_home.php"> <i class="fa fa-table" aria-hidden="true"></i> Classrooms </a> </li>
 						<li><a href="feedback.php"> <i class="fa fa-smile-o" aria-hidden="true"></i> Feedback </a> </li>' : '').
 ($is_admin ? '<li><a href="admin.php"><i class="fa fa-cog" aria-hidden="true"></i> Admin</a></li>' : '' ).'
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 ' . (($logged_in === FALSE) ? '<li><button class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#loginModal">Login or Register</button></li>' :
-     ("<li><a href=\"/profile.php?login_name=$login_name\">" . $display_name . '</a></li><li><a href="/logout.php">Logout</a></li>')) . '
+     ("<li><a href=\"/profile.php?login_name=$login_name\">" . $display_name . '</a></li><li><a href="/logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>')) . '
 					</ul>
 				</div>
 			</div>
 </nav>
-      <div class="modal fade" role="dialog" id="loginModal" style="background-color:rgba(240,240,240,0.8);">
+      <div class="modal fade" role="dialog" id="loginModal" style="background-color:rgba(255,255,255,0.8);">
 <div class="modal-dialog">
 <div class="modal-content">
 
 <div class="modal-header">
-<span class="modal-title">Login</span>
+<span class="modal-title"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</span>
 <button class="close" data-dismiss="modal">x</button>
 </div>
 
