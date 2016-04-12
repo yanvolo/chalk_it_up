@@ -22,8 +22,8 @@ needUserInfo();
     <title>Chalk it up!</title>
 	
   </head>
-  <body> <div class="container">
-		<?php printNav();
+  <body> 
+		<?php printNav(); ?> <div class="container"> <?php
 
 function printClassFromId($classid){
     $class = runSql1('get_class', 'SELECT * FROM class WHERE classid = $1;', array($classid));
