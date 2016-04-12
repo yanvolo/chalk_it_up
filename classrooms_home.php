@@ -22,7 +22,7 @@ needUserInfo();
     <title>Chalk it up!</title>
 	
   </head>
-  <body>
+  <body> <div class="container">
 		<?php printNav();
 
 function printClassFromId($classid){
@@ -60,7 +60,7 @@ if($logged_in === FALSE){
     }
 }
 ?>
-
+</div>
 
 
   </body>
