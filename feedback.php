@@ -36,7 +36,7 @@ needUserInfo();
 					 </div>
 					 <div class="checkbox">
 						<label>
-						  <input type="checkbox" name="report-type[]" value="--General Feedback--"> Genneral Feedback
+						  <input type="checkbox" name="report-type[]" value="--General Feedback--"> General Feedback
 						</label>
 					 </div>
 					<label> Content: </label> 
