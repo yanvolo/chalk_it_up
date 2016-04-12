@@ -30,8 +30,8 @@ function addCard(){
 }
 function removeCard(){
   if(numCards>minCards){
-	  $(createID("card-"+numCards)).empty();
-	  $(createID("card-"+numCards)).remove();
+	  $("#card-"+numCards).empty();
+	  $("#card-"+numCards).remove();
 	  numCards--;
 	}
 }
