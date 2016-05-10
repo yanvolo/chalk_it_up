@@ -19,31 +19,8 @@ needUserInfo();
   <body>
 <?php printNav();?>
 <div class="row">
-		<div class="col-lg-10 col-lg-offset-1 well">
-				<h3> Feedback </h3>
-				<p> Write to use and let us know how we are doing </p>
-				<form class="form-group" id="full-message" action="feedback_sent.php" method="post">
-					<input type="text" name = "head" class="form-control" id="header" placeholder="Message Head" required>
-					  <div class="checkbox">
-						<label>
-						  <input type="checkbox" name="report-type[]" value="--Bug Report--"> Bug Report
-						</label>
-					 </div>
-					 <div class="checkbox">
-						<label>
-						  <input type="checkbox" name="report-type[]" value="--Feature Request--"> Feature Request
-						</label>
-					 </div>
-					 <div class="checkbox">
-						<label>
-						  <input type="checkbox" name="report-type[]" value="--General Feedback--"> General Feedback
-						</label>
-					 </div>
-					<label> Content: </label> 
-					<textarea class="form-control" COLS=65 ROWS=5 placeholder="Message Contents" name="message" required></textarea>
-					<input type="submit" class="button btn-primary" id="submit">
-				</form>
-				
+		<div class="col-xs-10 col-xs-offset-1">
+			<iframe src="http://goo.gl/forms/9LeVf3abF5" style="width:100%;height:90em;" frameborder="0" scrolling="no"></iframe>	
 		</div>
 	</div>
 
