@@ -35,7 +35,7 @@ if(!$is_admin){
                                                      <h2>Add boss</h2>
                                                      <form action='new_boss.php' method='POST'>
                                                      <input class="form-control" type='text' name='classid' placeholder="Class ID"/><br/>
-                                                     <input class="form-control" type='text' name='display_name' placeholder="Display Name"/><br/>
+                                                     <input class="form-control" type='text' name='display_name' placeholder="New Boss Name"/><br/>
                                                      <input class="form-control" type='text' name='img_url' placeholder="Image URL"/><br/>
                                                      <input class="form-control" type='text' name='hp' placeholder="HP"/><br/>
                                                      <input class="btn btn-primary" type='submit' value='Create'/><br/>
