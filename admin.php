@@ -14,7 +14,7 @@ if(!$is_admin){
 <body>
 <?php printNav();?>
 <div class="container">
-    <div class="col-lg-12">
+    <div class="col-xs-12">
 <h1>Admin</h!>
                                                      <h2>Add class</h2>
                                                      <form action='new_class.php' method='POST'>
